@@ -56,6 +56,30 @@ class Polinomio:
             print('------------------------------')
             print(f"El foco de la parábola es: ({foco[0]}, {foco[1]})")
 
+    def resolver_grado_3(self):
+        if self.grado != 3:
+            print("No es un polinomio de grado 3.")
+            return
+
+        a, b, c, d = self.coeficientes
+
+        print(f'LOS COEFICIENTES SON: ', 'A=', a, 'B=', b, 'C=', c, 'D=', d)
+
+        # Calcular las coordenadas del foco
+        coordenada_x_foco = -b / (3 * a)
+        coordenada_y_foco = (c - b*2 / (3 * a)) - (a * coordenada_x_foco*3)
+
+        print('------------------------------')
+        print(f"El foco de la parábola es: ({coordenada_x_foco}, {coordenada_y_foco})")
+
+        # Calcular la ecuación de la directriz
+        distancia_foco_directriz = abs(1 / (4 * a))
+        coordenada_y_directriz = coordenada_y_foco - distancia_foco_directriz
+
+        print('------------------------------')
+        print(f"La ecuación de la directriz es: y = {coordenada_y_directriz}")
+
+
     def graficar_polinomio(self):
         if self.grado != 2:
             print("No es un polinomio de grado 2.")
@@ -106,28 +130,18 @@ class Polinomio:
         plt.grid(True)
         plt.show()
 
-    def resolver_grado_3(self):
-        if self.grado != 3:
-            print("No es un polinomio de grado 3.")
-            return
+    def calcular_directriz(self):
+        if self.grado != 2:
+            print("No es un polinomio de grado 2.")
+            return None
 
-        a, b, c, d = self.coeficientes
+        a, b, c = self.coeficientes
 
-        print(f'LOS COEFICIENTES SON: ', 'A=', a, 'B=', b, 'C=', c, 'D=', d)
-
-        # Calcular las coordenadas del foco
-        coordenada_x_foco = -b / (3 * a)
-        coordenada_y_foco = (c - b**2 / (3 * a)) - (a * coordenada_x_foco**3)
+        # Calcular la coordenada x de la directriz
+        coordenada_x_directriz = -b / (2 * a)
 
         print('------------------------------')
-        print(f"El foco de la parábola es: ({coordenada_x_foco}, {coordenada_y_foco})")
-
-        # Calcular la ecuación de la directriz
-        distancia_foco_directriz = abs(1 / (4 * a))
-        coordenada_y_directriz = coordenada_y_foco - distancia_foco_directriz
-
-        print('------------------------------')
-        print(f"La ecuación de la directriz es: y = {coordenada_y_directriz}")
+        print(f"La ecuación de la directriz es: x = {coordenada_x_directriz}")
 
     def info(self):
         print(f'Ecuaciones de tercer grado')
@@ -158,6 +172,7 @@ if grado in ("1", "2", "3"):
         
         tipo = polinomio.calcular_maximo_o_minimo()
         print(f'El polinomio tiene un punto de {tipo}.')
+        polinomio.calcular_directriz()
 
     elif grado == "3":
         polinomio = Polinomio(int(grado))
